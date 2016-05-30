@@ -61,6 +61,9 @@ public class Game extends JPanel implements Runnable {
 		
 	}
 	private void updateAndRender(long deltaMillis) {
+		while(currentState == null){
+			
+		}
 		currentState.update(deltaMillis/1000f);
 		prepareGameImage();
 		currentState.render(gameImage.getGraphics());

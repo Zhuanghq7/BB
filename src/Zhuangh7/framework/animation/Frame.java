@@ -10,6 +10,10 @@ public class Frame {
 		this.image = image;
 		this.duration = duration;
 	}
+	public Frame(Image image){
+		this.image = image;
+		this.duration = -1;
+	}
 	
 	public double getDuration(){
 		return duration;

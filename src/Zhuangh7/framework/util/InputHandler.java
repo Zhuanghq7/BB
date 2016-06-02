@@ -35,6 +35,9 @@ public class InputHandler implements KeyListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		while(currentState==null){
+			
+		}
 		currentState.onClick(e);
 		// TODO Auto-generated method stub
 		

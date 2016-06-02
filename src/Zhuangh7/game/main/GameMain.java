@@ -5,8 +5,8 @@ import Zhuangh7.game.main.Game;
 
 public class GameMain {
 	private static final String GAME_TITLE = "Ellio";
-	public static final int GAME_WIDTH = 500;
-	public static final int GAME_HEIGHT = 800;
+	public static final int GAME_WIDTH = 400;
+	public static final int GAME_HEIGHT = 700;
 	public static Game sGame;
 	
 	public static void main(String[] args){

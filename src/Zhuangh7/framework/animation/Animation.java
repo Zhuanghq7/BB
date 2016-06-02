@@ -9,6 +9,7 @@ public class Animation {
 	
 	private double totalDuration = 0;
 	private double currentTime = 0;
+	private boolean isStatic = false;
 	
 	public Animation(Frame...frames ){
 		this.frames = frames;
@@ -17,11 +18,17 @@ public class Animation {
 		for(int i = 0 ;i<frames.length;i++){
 			Frame f = frames[i];
 			totalDuration += f.getDuration();
+			if(f.getDuration() == -1)
+			{
+				isStatic = true;
+				break;
+			}
 			frameEndTimes[i] = totalDuration;
 		}
 	}
 	
 	public synchronized void update(float increment){
+		if(!isStatic){
 		currentTime += increment;
 		
 		if(currentTime > totalDuration){
@@ -30,6 +37,7 @@ public class Animation {
 		
 		while(currentTime > frameEndTimes[currentFrameIndex]){
 			currentFrameIndex++;
+		}
 		}
 	}
 	

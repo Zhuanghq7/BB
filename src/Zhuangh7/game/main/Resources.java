@@ -2,6 +2,7 @@ package Zhuangh7.game.main;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import Zhuangh7.framework.animation.Frame;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -9,11 +10,14 @@ import javax.imageio.ImageIO;
 
 public class Resources {
 	
-	public static BufferedImage welcome,iconimage; 
+	public static BufferedImage welcome,iconimage,BB_dan;
+	public static Frame BB_dann;
 	
 	public static void load(){
-		welcome = loadImage("welcome.png");
-		iconimage = loadImage("iconimage.png");
+		welcome = loadImage("BB_Welcome.jpg");
+		//iconimage = loadImage("iconimage.png");
+		BB_dan = loadImage("BB_dan.png");
+		BB_dann = new Frame(BB_dan);
 	}
 	
 	private static AudioClip loadSound(String filname){

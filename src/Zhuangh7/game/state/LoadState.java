@@ -10,6 +10,7 @@ public class LoadState extends State{
 	
 	@Override 
 	public void init(){
+		System.out.println("begin load");
 		Resources.load();
 		System.out.println("Loaded Successfully");
 	}

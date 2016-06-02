@@ -8,6 +8,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import Zhuangh7.game.state.LoadState;
 import Zhuangh7.game.state.State;
 import Zhuangh7.framework.util.InputHandler;
 
@@ -62,7 +63,7 @@ public class Game extends JPanel implements Runnable {
 	}
 	private void updateAndRender(long deltaMillis) {
 		while(currentState == null){
-			
+			System.out.println("waiting for currentState");
 		}
 		currentState.update(deltaMillis/1000f);
 		prepareGameImage();
@@ -83,7 +84,7 @@ public class Game extends JPanel implements Runnable {
 		super.addNotify();
 		initInput();
 		System.out.println("InitInput");
-		//setCurrentState(new LoadState());
+		setCurrentState(new LoadState());
 		initGame();
 	}
 	

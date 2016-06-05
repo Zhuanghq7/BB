@@ -24,9 +24,9 @@ public class PlayState extends State{
 	private static boolean haveBall = false;
 	private static int Begin_X;
 	private static int Begin_Y;
-	private static int V = 10; 
-	private static int VX = 0;
-	private static int VY = 0;
+	private static double V = 15; 
+	private static double VX = 0;
+	private static double VY = 0;
 	private static int[] box_w,box_h;
 	public static boolean firstBall = true; 
 	public static ArrayList<Ball> B = new ArrayList<Ball>();
@@ -72,13 +72,14 @@ public class PlayState extends State{
 		Begin_Y = (int)(bottom);
 		//addBall();
 		haveBall = true;
+		//*******************init box setting
 		box_w = new int[7];
 		box_h = new int[9];
 		for(int i = 0;i<7;i++){
 			if(i>=1){
 				box_w[i] = box_w[i-1]+(int)(1.1*boxWidth);
 			}else{
-				box_w[i] = (int)(1.1*boxWidth);
+				box_w[i] = (int)(0.1*boxWidth);
 			}
 		}
 		for(int i =0;i<9;i++){
@@ -89,6 +90,7 @@ public class PlayState extends State{
 				box_h[i] = top+(int)(0.1*boxWidth);
 			}
 		}
+		
 		addBox();
 	}
 	
@@ -183,6 +185,12 @@ public class PlayState extends State{
 	private void renderBoxs(Graphics g){
 		for(Box b:Boxx){
 			b.render(g,b.getX()-b.getWidth()/2,b.getY()-b.getWidth()/2,b.getWidth(),b.getHeight());
+			g.setColor(Color.RED);
+			g.fillRect((int)b.getR1().getX()-2,(int)b.getR1().getY()-2, 4, 4);
+			g.fillRect((int)b.getR2().getX()-2,(int)b.getR2().getY()-2, 4, 4);
+			g.fillRect((int)b.getR3().getX()-2,(int)b.getR3().getY()-2, 4, 4);
+			g.fillRect((int)b.getR4().getX()-2,(int)b.getR4().getY()-2, 4, 4);
+			
 		}
 	}
 	
@@ -197,8 +205,14 @@ public class PlayState extends State{
 			mutexRemove = 0;
 			for(Ball b:B){
 				b.render(g, (int)(b.getX()-BallWidth*0.5),(int)( b.getY()-BallWidth*0.5),BallWidth,BallWidth);
+				/*g.setColor(Color.RED);
+				g.fillOval((int)(b.getX()-2.5), (int)(b.getY()-2.5),5,5);*/
 				g.setColor(Color.RED);
-				g.fillOval((int)(b.getX()-2.5), (int)(b.getY()-2.5),5,5);
+				g.fillRect((int)(b.getRect().getX()-2), (int)(b.getRect().getY()-2), 4, 4);
+				g.fillRect((int)(b.getRect().getX()+b.getRect().getWidth()-2), (int)(b.getRect().getY()-2), 4, 4);
+				g.fillRect((int)(b.getRect().getX()+b.getRect().getWidth()-2), (int)(b.getRect().getY()+b.getRect().getHeight()-2), 4, 4);
+				g.fillRect((int)(b.getRect().getX()-2), (int)(b.getRect().getY()+b.getRect().getHeight()-2), 4, 4);
+				g.fillRect(b.getX()-2, b.getY()-2, 4, 4);
 			}
 			mutexRemove = 1;
 			mutexAdd = 1;
@@ -220,8 +234,8 @@ public class PlayState extends State{
 		int Dx = Math.abs(e.getX()-Begin_X);
 		int Dy = Math.abs(e.getY()-Begin_Y);
 		double z = Math.sqrt(Dx*Dx+Dy*Dy);
-		VX = (int)((V/z)*Dx);
-		VY = (int)((V/z)*Dy);
+		VX = ((V/z)*Dx);
+		VY = ((V/z)*Dy);
 	//	System.out.println(""+Dx+","+Dy);
 		VY = -VY;
 		if(e.getX()<=Begin_X){

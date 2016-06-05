@@ -10,12 +10,13 @@ public class Box extends Thing{
 	public Box(int type,int x, int y, int width, int height, Frame... frames) {
 		super(x, y, width, height, frames);
 		// TODO Auto-generated constructor stub
+		updateRect();
 		switch(type){
 		case 0:
-			r1 = new Rectangle(x+width/2,y-height/2,1,1);
-			r2 = new Rectangle(x+width/2,y+height/2,1,1);
-			r3 = new Rectangle(x-width/2,y+height/2,1,1);
-			r4 = new Rectangle(x-width/2,y-height/2,1,1);
+			r1 = new Rectangle(rect.x+rect.width,rect.y,1,1);
+			r2 = new Rectangle(rect.x+rect.width,rect.y+rect.width,1,1);
+			r3 = new Rectangle(rect.x,rect.y+rect.width,1,1);
+			r4 = new Rectangle(rect.x,rect.y,1,1);
 			break;
 		case 1:
 			r1 = null;
@@ -42,6 +43,7 @@ public class Box extends Thing{
 			r4 = null;
 			break;
 		}
+		
 	}
 	
 	public Rectangle getRect(){
@@ -67,8 +69,10 @@ public class Box extends Thing{
 	}
 	@Override
 	protected void updateRect(){
-		rect.x = this.x-(width/7)*3;
-		rect.y = this.y-(height/7)*3;
+		rect.x = (int)(this.x-(width/7)*3);
+		rect.y = (int)(this.y-(height/7)*3);
+		rect.width = this.width/7*6;
+		rect.height = this.width/7*6;
 	}
 	
 }

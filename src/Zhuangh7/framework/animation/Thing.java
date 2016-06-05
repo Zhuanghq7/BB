@@ -6,12 +6,12 @@ import java.awt.Rectangle;
 import Zhuangh7.game.main.GameMain;
 
 public class Thing extends Animation{
-	protected int x;
-	protected int y;
+	protected double x;
+	protected double y;
 	protected int width;
 	protected int height;
-	protected int velX;
-	protected int velY;
+	protected double velX;
+	protected double velY;
 	protected Rectangle rect;
 	Thing(int x,int y,int width,int height,Frame...frames ){
 		super(frames);
@@ -36,12 +36,12 @@ public class Thing extends Animation{
 	}
 	public int getX()
 	{
-		return x;
+		return (int)x;
 	}
 	public int getY(){
-		return y;
+		return (int)y;
 	}
-	public boolean move(int velX,int velY){
+	public boolean move(double velX,double velY){
 		/*if(this.y>=GameMain.GAME_HEIGHT*0.85)
 			return false;*/
 		this.velX = velX;
@@ -62,8 +62,8 @@ public class Thing extends Animation{
 	}
 
 	protected void updateRect(){
-		rect.x = this.x-width/2;
-		rect.y = this.y-height/2;
+		rect.x = (int)(this.x-width/2);
+		rect.y = (int)(this.y-height/2);
 	}
 	public synchronized void render(Graphics g,int x,int y){
 		super.render(g, x, y);
@@ -79,5 +79,8 @@ public class Thing extends Animation{
 	public boolean setY(int y){
 		this.y = y;
 		return true;
+	}
+	public Rectangle getRect(){
+		return rect;
 	}
 }

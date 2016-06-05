@@ -22,6 +22,10 @@ public class Thing extends Animation{
 		this.width = width;
 		this.height =height;
 		rect = new Rectangle();
+		rect.x = x-width/2;
+		rect.y = y-height/2;
+		rect.height = height;
+		rect.width = width;
 		
 	}
 	public int getWidth(){
@@ -58,10 +62,8 @@ public class Thing extends Animation{
 	}
 
 	protected void updateRect(){
-		rect.x = this.x;
-		rect.y = this.y;
-		rect.height = this.height;
-		rect.width = this.width;
+		rect.x = this.x-width/2;
+		rect.y = this.y-height/2;
 	}
 	public synchronized void render(Graphics g,int x,int y){
 		super.render(g, x, y);

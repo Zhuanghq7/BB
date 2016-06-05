@@ -10,14 +10,17 @@ import javax.imageio.ImageIO;
 
 public class Resources {
 	
-	public static BufferedImage welcome,iconimage,BB_dan;
+	public static BufferedImage welcome,iconimage,BB_dan,box_0;
 	public static Frame BB_dann;
+	public static Frame Box_0;
 	
 	public static void load(){
 		welcome = loadImage("BB_Welcome.jpg");
 		//iconimage = loadImage("iconimage.png");
 		BB_dan = loadImage("BB_dan.png");
 		BB_dann = new Frame(BB_dan);
+		box_0 = loadImage("box_0.png");
+		Box_0 = new Frame(box_0);
 	}
 	
 	private static AudioClip loadSound(String filname){

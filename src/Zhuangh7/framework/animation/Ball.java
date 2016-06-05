@@ -23,19 +23,21 @@ public class Ball extends Thing{
 	}
 	
 	@Override
-	public void update(float n){
-		x+=velX;
-		y+=velY;
+	public void update(float n){	
 		//System.out.println(""+width);
+		x-=velX;
+		y-=velY;
+		int i =collide();
+		if(i!=-1){
+			IScollide(i);
+		}
+		x+=2*velX;
+		y+=2*velY;
 		if(this.y>PlayState.bottom+5)
 		{
 			ready();	
 		}
 		
-		int i =collide();
-		if(i!=-1){
-			IScollide(i);
-		}
 		super.updateRect();
 	}
 	
@@ -82,37 +84,76 @@ public class Ball extends Thing{
 		}
 		for(Box b:PlayState.Boxx){
 			if(rect.intersects(b.getRect())){
-				if(rect.intersects(b.getR1())&&(x>b.getR1().getX())&&(y<b.getR1().getY())){
-					System.out.println("r1");
-					return 4;
+				if(rect.intersects(b.getR1())){
+					if((x>b.getR1().getX())&&(y<b.getR1().getY())){
+						System.out.println("r1");
+						return 4;
+						}
+					else if(x>b.getR1().getX()){
+						return 1;
+					}
+					else if(y<b.getR1().getY()){
+						return 2;
+					}
 				}
-				else if(rect.intersects(b.getR2())&&(x>b.getR2().getX())&&(y>b.getR2().getY())){
-					System.out.println("r2");
-					return 5;					
+				else if(rect.intersects(b.getR2())){
+					if((x>b.getR2().getX())&&(y>b.getR2().getY())){
+						System.out.println("r2");
+						return 5;
+					}
+					else if(x>b.getR2().getX()){
+						return 1;
+					}
+					else if(y>b.getR2().getY()){
+						return 2;
+					}
 				}
-				else if(rect.intersects(b.getR3())&&(x<b.getR3().getX())&&(y>b.getR3().getY())){
-					System.out.println("r3");
-					return 6;
+				else if(rect.intersects(b.getR3())){
+					if((x<b.getR3().getX())&&(y>b.getR3().getY())){
+						System.out.println("r3");
+						return 6;
+					}
+					else if(x<b.getR3().getX()){
+						return 1;
+					}
+					else if(y>b.getR3().getY()){
+						return 2;
+					}
 				}
-				else if(rect.intersects(b.getR4())&&(x<b.getR4().getX())&&(y<b.getR4().getY())){
-					System.out.println("r4");
-					return 7;
+				else if(rect.intersects(b.getR4())){
+					if((x<b.getR4().getX())&&(y<b.getR4().getY())){
+						System.out.println("r4");
+						return 7;
+					}
+					else if(x<b.getR4().getX()){
+						return 1;
+					}
+					else if(y<b.getR4().getY()){
+						return 2;
+					}
 				}
-				else if(x>b.getX()){
+				if(x>b.getX()){
 					if(y<b.getR2().getY()&&y>b.getR1().getY()){
 						x = b.getX()+b.getWidth()/2+width/2;
 						return 1;
 					}
 				}
-				else if(x<b.getX()){
+				if(x<b.getX()){
 					if(y<b.getR2().getY()&&y>b.getR1().getY()){
 						x = b.getX()-b.getWidth()/2-width/2;
 						return 1;
 					}
 				}
-				else if(y>b.getY()||y<b.getY()){
+				if(y>b.getY()){
 					if(x>b.getR3().getX()&&x<b.getR2().getX()){
-						return 9;
+						y = b.getY()+b.getHeight()/2+height/2;
+						return 2;
+					}
+				}
+				if(y<b.getY()){
+					if(x>b.getR3().getX()&&x<b.getR2().getX()){
+						y = b.getY()-b.getHeight()/2-height/2; 
+						return 2;
 					}
 				}
 				//System.out.println("normal");

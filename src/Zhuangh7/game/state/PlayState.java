@@ -24,7 +24,7 @@ public class PlayState extends State{
 	private static boolean haveBall = false;
 	private static int Begin_X;
 	private static int Begin_Y;
-	private static double V = 15; 
+	private static double V = 3; 
 	private static double VX = 0;
 	private static double VY = 0;
 	private static int[] box_w,box_h;
@@ -270,7 +270,7 @@ public class PlayState extends State{
 	}
 	
 	public void addBox(){
-		Box Box1 = new Box(0,box_w[0]+boxWidth/2,box_h[0]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
+		Box Box1 = new Box(0,box_w[3]+boxWidth/2,box_h[3]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
 		Boxx.add(Box1);
 		Box Box2 = new Box(0,box_w[0]+boxWidth/2,box_h[8]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
 		Boxx.add(Box2);

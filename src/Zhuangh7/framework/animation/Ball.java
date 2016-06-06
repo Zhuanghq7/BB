@@ -1,11 +1,13 @@
 package Zhuangh7.framework.animation;
+import java.awt.Rectangle;
+
 import Zhuangh7.framework.animation.Frame;
 import Zhuangh7.game.main.GameMain;
 import Zhuangh7.game.state.PlayState;
 public class Ball extends Thing{
 	
 	private int num;
-	
+	private Rectangle TempRect;
 	public void setNum(int num){
 		this.num = num;
 	}
@@ -25,20 +27,18 @@ public class Ball extends Thing{
 	@Override
 	public void update(float n){	
 		//System.out.println(""+width);
-		x-=velX;
-		y-=velY;
+		x+=velX;
+		y+=velY;
+		super.updateRect();
 		int i =collide();
 		if(i!=-1){
 			IScollide(i);
-		}
-		x+=2*velX;
-		y+=2*velY;
+		}	
 		if(this.y>PlayState.bottom+5)
 		{
 			ready();	
 		}
 		
-		super.updateRect();
 	}
 	
 	private synchronized void ready(){
@@ -69,89 +69,90 @@ public class Ball extends Thing{
 	private int collide(){
 		if((x-(int)(width*0.5))<=0)
 		{
-			x = 0+(int)(width*0.5)+1;
+			//x = 0+(int)(width*0.5)+1;
 			return 1;
 		}
 		else if((x+(int)(width*0.5))>=GameMain.GAME_WIDTH)
 		{
-			x = GameMain.GAME_WIDTH-(int)(0.5*width)-1;
+			//x = GameMain.GAME_WIDTH-(int)(0.5*width)-1;
 			return 1;
 		}
 		else if((y-(int)(height*0.5))<=PlayState.top)
 		{
-			y = PlayState.top+(int)(height*0.5)+1;
+			//y = PlayState.top+(int)(height*0.5)+1;
 			return 2;
 		}
 		for(Box b:PlayState.Boxx){
 			if(rect.intersects(b.getRect())){
 				if(rect.intersects(b.getR1())){
-					if((x>b.getR1().getX())&&(y<b.getR1().getY())){
+					if((x-velX>b.getR1().getX())&&(y-velY<b.getR1().getY())){
 						System.out.println("r1");
+						TempRect = b.getR1();
 						return 4;
 						}
-					else if(x>b.getR1().getX()){
+					else if(x-velX>b.getR1().getX()){
 						return 1;
 					}
-					else if(y<b.getR1().getY()){
+					else if(y-velY<b.getR1().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR2())){
-					if((x>b.getR2().getX())&&(y>b.getR2().getY())){
+					if((x-velX>b.getR2().getX())&&(y-velY>b.getR2().getY())){
 						System.out.println("r2");
 						return 5;
 					}
-					else if(x>b.getR2().getX()){
+					else if(x-velX>b.getR2().getX()){
 						return 1;
 					}
-					else if(y>b.getR2().getY()){
+					else if(y-velY>b.getR2().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR3())){
-					if((x<b.getR3().getX())&&(y>b.getR3().getY())){
+					if((x-velX<b.getR3().getX())&&(y-velY>b.getR3().getY())){
 						System.out.println("r3");
 						return 6;
 					}
-					else if(x<b.getR3().getX()){
+					else if(x-velX<b.getR3().getX()){
 						return 1;
 					}
-					else if(y>b.getR3().getY()){
+					else if(y-velY>b.getR3().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR4())){
-					if((x<b.getR4().getX())&&(y<b.getR4().getY())){
+					if((x-velX<b.getR4().getX())&&(y-velY<b.getR4().getY())){
 						System.out.println("r4");
 						return 7;
 					}
-					else if(x<b.getR4().getX()){
+					else if(x-velX<b.getR4().getX()){
 						return 1;
 					}
-					else if(y<b.getR4().getY()){
+					else if(y-velY<b.getR4().getY()){
 						return 2;
 					}
 				}
-				if(x>b.getX()){
-					if(y<b.getR2().getY()&&y>b.getR1().getY()){
+				if(x-velX>b.getX()){
+					if(y-velY<b.getR2().getY()&&y-velY>b.getR1().getY()){
 						x = b.getX()+b.getWidth()/2+width/2;
 						return 1;
 					}
 				}
-				if(x<b.getX()){
-					if(y<b.getR2().getY()&&y>b.getR1().getY()){
+				if(x-velX<b.getX()){
+					if(y-velY<b.getR2().getY()&&y-velY>b.getR1().getY()){
 						x = b.getX()-b.getWidth()/2-width/2;
 						return 1;
 					}
 				}
-				if(y>b.getY()){
-					if(x>b.getR3().getX()&&x<b.getR2().getX()){
+				if(y-velY>b.getY()){
+					if(x-velX>b.getR3().getX()&&x-velX<b.getR2().getX()){
 						y = b.getY()+b.getHeight()/2+height/2;
 						return 2;
 					}
 				}
-				if(y<b.getY()){
-					if(x>b.getR3().getX()&&x<b.getR2().getX()){
+				if(y-velY<b.getY()){
+					if(x-velX>b.getR3().getX()&&x-velX<b.getR2().getX()){
 						y = b.getY()-b.getHeight()/2-height/2; 
 						return 2;
 					}
@@ -169,7 +170,12 @@ public class Ball extends Thing{
 			velY=-velY;
 		}
 		else if(i==4){
-			
+			double TempV = Math.sqrt(velX*velX+velY*velY);
+			double a1 = Math.atan(velY/velX);
+			double a = Math.atan((TempRect.getY()-y)/(TempRect.getX()-x));
+			double a3 = Math.PI+a1-2*a;
+			velX = Math.cos(a3)*TempV;
+			velY = Math.sin(a3)*TempV;
 		}
 		else if(i==5){
 			

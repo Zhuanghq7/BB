@@ -24,7 +24,7 @@ public class PlayState extends State{
 	private static boolean haveBall = false;
 	private static int Begin_X;
 	private static int Begin_Y;
-	private static double V = 3; 
+	private static double V = 7; 
 	private static double VX = 0;
 	private static double VY = 0;
 	private static int[] box_w,box_h;
@@ -207,12 +207,12 @@ public class PlayState extends State{
 				b.render(g, (int)(b.getX()-BallWidth*0.5),(int)( b.getY()-BallWidth*0.5),BallWidth,BallWidth);
 				/*g.setColor(Color.RED);
 				g.fillOval((int)(b.getX()-2.5), (int)(b.getY()-2.5),5,5);*/
-				g.setColor(Color.RED);
+				/*g.setColor(Color.RED);
 				g.fillRect((int)(b.getRect().getX()-2), (int)(b.getRect().getY()-2), 4, 4);
 				g.fillRect((int)(b.getRect().getX()+b.getRect().getWidth()-2), (int)(b.getRect().getY()-2), 4, 4);
 				g.fillRect((int)(b.getRect().getX()+b.getRect().getWidth()-2), (int)(b.getRect().getY()+b.getRect().getHeight()-2), 4, 4);
 				g.fillRect((int)(b.getRect().getX()-2), (int)(b.getRect().getY()+b.getRect().getHeight()-2), 4, 4);
-				g.fillRect(b.getX()-2, b.getY()-2, 4, 4);
+				g.fillRect(b.getX()-2, b.getY()-2, 4, 4);*/
 			}
 			mutexRemove = 1;
 			mutexAdd = 1;

@@ -49,13 +49,13 @@ public class Game extends JPanel implements Runnable {
 			updateAndRender(deltaMillis);
 			
 			updateDurationMillis = (System.nanoTime()-beforeUpdateRender)/1000000L;
-			sleepDurationMillis = Math.max(2, 17-updateDurationMillis);
+			/*sleepDurationMillis = Math.max(2, 17-updateDurationMillis);
 			try{
 				Thread.sleep(sleepDurationMillis);
 				
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}
+			}*/
 		}
 		System.exit(0);
 		// TODO Auto-generated method stub

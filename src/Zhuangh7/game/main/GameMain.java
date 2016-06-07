@@ -10,15 +10,15 @@ public class GameMain {
 	public static Game sGame;
 	
 	public static void main(String[] args){
-		JFrame Ellio = new JFrame(GAME_TITLE);
-		Ellio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Ellio.setResizable(false);
-		Ellio.setVisible(true);
+		JFrame BB = new JFrame(GAME_TITLE);
+		BB.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BB.setResizable(false);
+		BB.setVisible(true);
 		sGame = new Game(GAME_WIDTH,GAME_HEIGHT);
-		Ellio.add(sGame);
-		Ellio.pack();
+		BB.add(sGame);
+		BB.pack();
 		
-		Ellio.setVisible(true);
+		BB.setVisible(true);
 		sGame.requestFocus();
 		//Ellio.setIconImage(Resources.iconimage);
 	}

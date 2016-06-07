@@ -27,10 +27,10 @@ public class Ball extends Thing{
 	@Override
 	public void update(float n){	
 		//System.out.println(""+width);
-		x+=velX;
-		y+=velY;
+		x+=velX*n;
+		y+=velY*n;
 		super.updateRect();
-		int i =collide();
+		int i =collide(n);
 		if(i!=-1){
 			IScollide(i);
 		}	
@@ -56,17 +56,17 @@ public class Ball extends Thing{
 	//PlayState.B.remove(this);
 		PlayState.static_B.add(this);
 	
-		if(PlayState.firstBall){
+		/*if(PlayState.firstBall){
 			PlayState.setBeginX((int)x);
 			System.out.println("set new begin");
 		}
-	
+	*/
 		this.x = PlayState.getBeginX();
 		this.y = PlayState.getBeginY();
 		PlayState.firstBall = false;
 	}
 	
-	private int collide(){
+	private int collide(float n){
 		if((x-(int)(width*0.5))<=0)
 		{
 			//x = 0+(int)(width*0.5)+1;
@@ -83,82 +83,90 @@ public class Ball extends Thing{
 			return 2;
 		}
 		for(Box b:PlayState.Boxx){
-			if(rect.intersects(b.getRect())){
+			
+			
+			
+			
+			
+			/*if(rect.intersects(b.getRect())){
 				if(rect.intersects(b.getR1())){
-					if((x-velX>b.getR1().getX())&&(y-velY<b.getR1().getY())){
+					if((x-velX*n>b.getR1().getX())&&(y-velY*n<b.getR1().getY())){
 						System.out.println("r1");
 						TempRect = b.getR1();
 						return 4;
 						}
-					else if(x-velX>b.getR1().getX()){
+					else if(x-velX*n>b.getR1().getX()){
 						return 1;
 					}
-					else if(y-velY<b.getR1().getY()){
+					else if(y-velY*n<b.getR1().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR2())){
-					if((x-velX>b.getR2().getX())&&(y-velY>b.getR2().getY())){
+					if((x-velX*n>b.getR2().getX())&&(y-velY*n>b.getR2().getY())){
 						System.out.println("r2");
-						return 5;
+						TempRect = b.getR2();
+						return 4;
 					}
-					else if(x-velX>b.getR2().getX()){
+					else if(x-velX*n>b.getR2().getX()){
 						return 1;
 					}
-					else if(y-velY>b.getR2().getY()){
+					else if(y-velY*n>b.getR2().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR3())){
-					if((x-velX<b.getR3().getX())&&(y-velY>b.getR3().getY())){
+					if((x-velX*n<b.getR3().getX())&&(y-velY*n>b.getR3().getY())){
 						System.out.println("r3");
-						return 6;
+						TempRect = b.getR3();
+						return 4;
 					}
-					else if(x-velX<b.getR3().getX()){
+					else if(x-velX*n<b.getR3().getX()){
 						return 1;
 					}
-					else if(y-velY>b.getR3().getY()){
+					else if(y-velY*n>b.getR3().getY()){
 						return 2;
 					}
 				}
 				else if(rect.intersects(b.getR4())){
-					if((x-velX<b.getR4().getX())&&(y-velY<b.getR4().getY())){
+					if((x-velX*n<b.getR4().getX())&&(y-velY*n<b.getR4().getY())){
 						System.out.println("r4");
-						return 7;
+						TempRect = b.getR4();
+						return 4;
 					}
-					else if(x-velX<b.getR4().getX()){
+					else if(x-velX*n<b.getR4().getX()){
 						return 1;
 					}
-					else if(y-velY<b.getR4().getY()){
+					else if(y-velY*n<b.getR4().getY()){
 						return 2;
 					}
 				}
 				if(x-velX>b.getX()){
-					if(y-velY<b.getR2().getY()&&y-velY>b.getR1().getY()){
+					if(y-velY*n<b.getR2().getY()&&y-velY*n>b.getR1().getY()){
 						x = b.getX()+b.getWidth()/2+width/2;
 						return 1;
 					}
 				}
-				if(x-velX<b.getX()){
-					if(y-velY<b.getR2().getY()&&y-velY>b.getR1().getY()){
+				if(x-velX*n<b.getX()){
+					if(y-velY*n<b.getR2().getY()&&y-velY*n>b.getR1().getY()){
 						x = b.getX()-b.getWidth()/2-width/2;
 						return 1;
 					}
 				}
-				if(y-velY>b.getY()){
-					if(x-velX>b.getR3().getX()&&x-velX<b.getR2().getX()){
+				if(y-velY*n>b.getY()){
+					if(x-velX*n>b.getR3().getX()&&x-velX*n<b.getR2().getX()){
 						y = b.getY()+b.getHeight()/2+height/2;
 						return 2;
 					}
 				}
-				if(y-velY<b.getY()){
-					if(x-velX>b.getR3().getX()&&x-velX<b.getR2().getX()){
+				if(y-velY*n<b.getY()){
+					if(x-velX*n>b.getR3().getX()&&x-velX*n<b.getR2().getX()){
 						y = b.getY()-b.getHeight()/2-height/2; 
 						return 2;
 					}
 				}
 				//System.out.println("normal");
-			}
+			}*/
 		}
 		return -1;
 	}

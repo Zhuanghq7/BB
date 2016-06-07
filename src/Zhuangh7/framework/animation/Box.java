@@ -69,10 +69,10 @@ public class Box extends Thing{
 	}
 	@Override
 	protected void updateRect(){
-		rect.x = (int)(this.x-(width/7)*3);
-		rect.y = (int)(this.y-(height/7)*3);
-		rect.width = this.width/7*6;
-		rect.height = this.width/7*6;
+		rect.x = (int)(this.x-width/2);
+		rect.y = (int)(this.y-height/2);
+		rect.width = this.width;
+		rect.height = this.width;
 	}
 	
 }

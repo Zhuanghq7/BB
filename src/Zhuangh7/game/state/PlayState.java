@@ -24,7 +24,7 @@ public class PlayState extends State{
 	private static boolean haveBall = false;
 	private static int Begin_X;
 	private static int Begin_Y;
-	private static double V = 7; 
+	private static double V = 500; 
 	private static double VX = 0;
 	private static double VY = 0;
 	private static int[] box_w,box_h;
@@ -40,6 +40,7 @@ public class PlayState extends State{
 	private static int BallWidth = 15; 
 	public static int top,bottom;
 	public static int boxWidth;
+	public static float delta;
 	
 	public static int getBeginX(){
 		return Begin_X;
@@ -58,7 +59,7 @@ public class PlayState extends State{
 	public void init(){
 		System.out.println("Entered PlayState");
 		BallWidth = (int)(GameMain.GAME_WIDTH*0.0375);
-		boxWidth = (int)(GameMain.GAME_WIDTH/7.8);
+		boxWidth = (int)(GameMain.GAME_WIDTH/7);
 		top = (int)(1.2*boxWidth); 
 		bottom = (int)(top+10*boxWidth);
 		/*if(!B1.move(RandomNumberGenerator.getRandIntBetween(1,10), RandomNumberGenerator.getRandIntBetween(1, 10))){
@@ -74,20 +75,20 @@ public class PlayState extends State{
 		haveBall = true;
 		//*******************init box setting
 		box_w = new int[7];
-		box_h = new int[9];
+		box_h = new int[10];
 		for(int i = 0;i<7;i++){
 			if(i>=1){
-				box_w[i] = box_w[i-1]+(int)(1.1*boxWidth);
+				box_w[i] = box_w[i-1]+(int)(boxWidth);
 			}else{
-				box_w[i] = (int)(0.1*boxWidth);
+				box_w[i] = 0;
 			}
 		}
-		for(int i =0;i<9;i++){
+		for(int i =0;i<10;i++){
 			if(i>=1){
-				box_h[i] = box_h[i-1]+(int)(1.1*boxWidth);
+				box_h[i] = box_h[i-1]+(int)(boxWidth);
 			}
 			else{
-				box_h[i] = top+(int)(0.1*boxWidth);
+				box_h[i] = top;
 			}
 		}
 		
@@ -98,10 +99,7 @@ public class PlayState extends State{
 	public void update(float delta){
 		//B1.update(delta);
 		updateBall(delta);
-		//updateBox(delta);
-	//	Box1.update(delta);
-		//return ball.getRect().intersects(p.getRect());Åö×²ÅÐ¶Ï
-		
+		this.delta = delta;
 	}
 	/*private void updateBox(float delta){
 		for(Box b:Boxx){
@@ -226,27 +224,28 @@ public class PlayState extends State{
 		g.drawString("leftBallNum"+leftBallNum+",static_B"+static_B.size() , 10, 30);
 		g.drawString("B"+B.size(), 10, 50);
 		g.drawString("Ballwidth"+BallWidth, 10, 70);
+		g.drawString("fps:"+(1/delta),GameMain.GAME_WIDTH-90,10 );
 	}
 	@Override 
 	public void onClick(MouseEvent e){
-		if(e.getY()<GameMain.GAME_HEIGHT*0.84){
-		addBall();
-		int Dx = Math.abs(e.getX()-Begin_X);
-		int Dy = Math.abs(e.getY()-Begin_Y);
-		double z = Math.sqrt(Dx*Dx+Dy*Dy);
-		VX = ((V/z)*Dx);
-		VY = ((V/z)*Dy);
-	//	System.out.println(""+Dx+","+Dy);
-		VY = -VY;
-		if(e.getX()<=Begin_X){
-			VX = -VX;
+		if(e.getButton() == 3){
+			Begin_X = e.getX();
+			Begin_Y = e.getY();
 		}
-		Time = 0;
-		leftBallNum = static_B.size();
-		go = true;
-		System.out.println("go");
+		if(e.getButton() ==1 ){
+			if(e.getY()<GameMain.GAME_HEIGHT*0.84){
+			addBall();
+			double Dx = e.getX()-Begin_X;
+			double Dy = e.getY()-Begin_Y;
+			VX = (V/Math.sqrt(Dx*Dx+Dy*Dy))*Dx;
+			VY = (V/Math.sqrt(Dx*Dx+Dy*Dy))*Dy;
+			Time = 0;
+			leftBallNum = static_B.size();
+			go = true;
+			System.out.println("go");
 	//	Bn.move(RandomNumberGenerator.getRandIntBetween(1,10), RandomNumberGenerator.getRandIntBetween(1,10));
-	}
+			}
+		}
 		}
 	
 	@Override 
@@ -270,9 +269,16 @@ public class PlayState extends State{
 	}
 	
 	public void addBox(){
-		Box Box1 = new Box(0,box_w[3]+boxWidth/2,box_h[3]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
+	/*	Box Box1 = new Box(0,box_w[3]+boxWidth/2,box_h[3]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
 		Boxx.add(Box1);
 		Box Box2 = new Box(0,box_w[0]+boxWidth/2,box_h[8]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
-		Boxx.add(Box2);
+		Boxx.add(Box2);*/
+		for(int i = 0 ;i<7;i++)
+		{
+			for(int j = 0;j<10;j++){
+				Box Boxn = new Box(0,box_w[i]+boxWidth/2,box_h[j]+boxWidth/2,boxWidth,boxWidth,Resources.Box_0);
+				Boxx.add(Boxn);
+			}
+		}
 	}
 }
